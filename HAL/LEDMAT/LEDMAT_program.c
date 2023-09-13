@@ -8,7 +8,7 @@
 #include "BIT_MATH.h"
 
 #include "GPIO_interface.h"
-#include "STK_interface.h"
+#include "TIMER_interface.h"
 
 #include "LEDMAT_interface.h"
 #include "LEDMAT_config.h"
@@ -38,6 +38,9 @@ void LEDMAT_Void_LedMatInit(void)
 	GPIO_Void_SetPinDirection(LEDMAT_COL6_PORT_PIN,GPIO_OUTPUT_10MHZ_PP);
 	GPIO_Void_SetPinDirection(LEDMAT_COL7_PORT_PIN,GPIO_OUTPUT_10MHZ_PP);
 
+	TIMER4_Void_InitTimer();
+
+
 }
 
 void LEDMAT_Void_LedMatShiftedDisplay(u8 * Copy_U8_DataDisplayed , u8 Copy_U8_Array)
@@ -65,7 +68,7 @@ void LEDMAT_Void_LedMatDisplay(u8 * Copy_U8_DataDisplayed)
 	 LEDMAT_Void_ColActivate(Local_U8_Index);
 	 LEDMAT_Void_SetRow(Local_U8_Frame[Local_U8_Index]);
 
-	 STK_Void_STKSetIntervalPeriodic(2000 , LEDMAT_Void_LedMatDisplayNextCol);
+	 TIMER4_Void_SetIntervalPeriodic(10 , LEDMAT_Void_LedMatDisplayNextCol);
 
 
 }

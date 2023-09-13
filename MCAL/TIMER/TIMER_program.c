@@ -12,6 +12,7 @@
 #include "TIMER_private.h"
 
 
+
 void TIMER2_Void_PwmInit(u8 Copy_U8_Channel)
 {
    /* To disable timer , Enable auto Preload ARR */
@@ -69,8 +70,97 @@ void TIMER2_Void_PwmStart()
 	SET_BIT(TIMER_CR1,0);
 }
 
+/**************************************** Timer 4 **********************************/
+void TIMER4_Void_InitTimer()
+{
+	/* Disable timer , Select up counter mode , Enable auto reload */
+	TIMER4_CR1 = 0x80;
+
+	/* Enable update interrupt  */
+	SET_BIT(TIMER4_DIER,0);
 
 
+	/* Select prescaler to clock frequency --> timer of tick = 1 msec */
+	TIMER4_PSC = 8000 ;
+
+}
+void TIMER4_Void_SetIntervalSingle(u32 Copy_U32_Ticks ,void(*Fptr)(void))
+{
+	/* Save call back function */
+	Timer4_CallBack = Fptr ;
+
+	/* Select timer mode as single interval */
+	U8_Timer4Mode = 1 ;
+
+	/* Set timer ticks */
+	TIMER4_ARR = Copy_U32_Ticks ;
+
+	/* Enable Timer  */
+	SET_BIT(TIMER4_CR1 ,0);
+
+
+
+}
+void TIMER4_Void_SetIntervalPeriodic(u32 Copy_U32_Ticks ,void(*Fptr)(void))
+{
+	/* Save call back function */
+	Timer4_CallBack = Fptr ;
+
+	/* Select timer mode as single interval */
+	U8_Timer4Mode = 2 ;
+
+	/* Set timer ticks */
+	TIMER4_ARR = Copy_U32_Ticks ;
+
+	/* Enable Timer  */
+	SET_BIT(TIMER4_CR1 ,0);
+
+
+
+}
+//void TIMER4_Void_SetBusyWait(u32 Copy_U32_Ticks)
+//{
+//
+//	//SET_BIT(TIMER4_CR1,1);
+//	SET_BIT(TIMER4_CR1,2);
+//	/* Set timer ticks */
+//	TIMER4_ARR = Copy_U32_Ticks ;
+//
+//	//SET_BIT(TIMER4_EGR,0);
+//
+//	/* Enable timer to start counting */
+//	SET_BIT(TIMER4_CR1 ,0);
+//
+//	/* Wait until timer finishes and update flag sets */
+//	while(GET_BIT(TIMER4_SR,0) == 0);
+//
+//	/* Disable Timer */
+//	CLR_BIT(TIMER4_CR1 ,0);
+//
+//	/* Clear update flag */
+//	CLR_BIT(TIMER4_SR,0);
+//
+//
+//}
+void TIMER4_Void_StopTimer()
+{
+	CLR_BIT(TIMER4_CR1 ,0);
+}
+
+void TIM4_IRQHandler(void)
+{
+	if(U8_Timer4Mode == 1)
+	{
+		/* Disable interrupt update  */
+		CLR_BIT(TIMER4_DIER,0);
+	}
+
+	Timer4_CallBack();
+
+	/* Clear interrupt update flag */
+	CLR_BIT(TIMER4_SR,0);
+
+}
 
 
 

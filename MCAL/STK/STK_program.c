@@ -43,6 +43,7 @@ void STK_Void_STKSetBusyWait(u32 Copy_U32_Ticks)
 
      /* To Disable Timer  */
      CLR_BIT(STK->CTRL,0);
+
      /* To Clear LOAD Register to count one time */
      STK->LOAD =0;
 

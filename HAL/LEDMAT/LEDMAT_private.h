@@ -10,8 +10,8 @@
 static void LEDMAT_Void_DisableColumns(void);
 static void LEDMAT_Void_SetRow(u8);
 static void LEDMAT_Void_ColActivate(u8);
-void LEDMAT_Void_LedMatDisplayNextCol();
-void LEDMAT_Void_ShitArray();
+static void LEDMAT_Void_LedMatDisplayNextCol();
+static void LEDMAT_Void_ShitArray();
 static void LEDMAT_Delay(u8);
 
 volatile u8 Local_U8_Index;
