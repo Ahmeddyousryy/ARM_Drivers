@@ -1,9 +1,11 @@
+/*******************************************************************/
+/*  Author : Ahmed Yousry                                          */
+/*  Date   : 15 Sep 2023                                           */
+/*  Version: V02                                                   */
+/*******************************************************************/
 
-#ifndef MCAL_UART_UART_CONFIG_H_
-#define MCAL_UART_UART_CONFIG_H_
+#ifndef UART_CONFIG_H_
+#define UART_CONFIG_H_
 
 
-
-
-
-#endif /* MCAL_UART_UART_CONFIG_H_ */
+#endif
